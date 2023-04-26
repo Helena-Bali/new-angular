@@ -1,0 +1,42 @@
+<mat-card [formGroup]="orderCustomForm" class="products">
+  <div class="items">
+    <div formArrayName="customItems"
+         *ngFor="let item of orderCustomForm.get('customItems')['controls']; let i = index;">
+      <div [formGroupName]="i" class="flex">
+        <mat-form-field class="product">
+          <input type="number" matInput formControlName="weight" placeholder="Вес кг" (input)="setParentCustomItems();">
+        </mat-form-field>
+
+        <mat-form-field class="product">
+          <input type="number" matInput formControlName="width" placeholder="Ширина мм" (input)="setParentCustomItems();">
+        </mat-form-field>
+
+        <mat-form-field class="product">
+          <input type="number" matInput formControlName="height" placeholder="Высота мм" (input)="setParentCustomItems();">
+        </mat-form-field>
+
+        <mat-form-field class="product">
+          <input type="number" matInput formControlName="length" placeholder="Длина мм" (input)="setParentCustomItems();">
+        </mat-form-field>
+
+         <mat-form-field class="quantity">
+          <input type="number" (change)="setParentCustomItems();" (input)="setParentCustomItems();"
+                 matInput formControlName="quantity" placeholder="Количество" min="1"  max="1000">
+        </mat-form-field>
+
+        <button mat-button mat-icon-button matSuffix type="button" (click)="deleteCustomItem(i)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <!--
+      Chosen name: {{ orderForm.controls.items.controls[i].controls.product.value }-->
+    </div>
+  </div>
+  <div class="tools">
+    <button mat-mini-fab
+            (click)="addCustomItem()"
+            matTooltip="Добавить размеры вручную"
+    >+
+    </button>
+  </div>
+</mat-card>

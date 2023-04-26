@@ -1,0 +1,133 @@
+<div class="calc-wrapper">
+  <div class="calc">
+    <div class="header">
+      <!--
+      <div class="company">
+        <mat-checkbox class="example-margin" [(ngModel)]="PEK">ПЭК</mat-checkbox>
+      </div>
+      <div class="company">
+        <mat-checkbox class="example-margin" [(ngModel)]="SDEK">СДЭК</mat-checkbox>
+      </div>
+      -->
+    </div>
+    <div class="body">
+      <mat-card class="list options">
+        <div class="header">
+          <h2>Направление</h2>
+        </div>
+        <div class="cities">
+          <mat-form-field class="">
+            <input type="text"
+                   placeholder="Откуда"
+                   matInput
+                   (input)="onFromChange($event.target.value)"
+                   [formControl]="citiesFromControl"
+                   [matAutocomplete]="auto" required>
+            <mat-error *ngIf="citiesFromControl.hasError('required')">
+              Это поле <strong>обязательно</strong>
+            </mat-error>
+
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+                              (optionSelected)="onFromChange($event.option.value);">
+              <mat-option *ngFor="let city of citiesFrom  | async " [value]="city">
+                {{city}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <mat-form-field class="">
+            <input type="text"
+                   placeholder="Куда"
+                   matInput
+                   (input)="onToChange($event.target.value)"
+                   [formControl]="citiesToControl"
+                   [matAutocomplete]="auto2" required>
+            <mat-error *ngIf="citiesToControl.hasError('required')">
+              Это поле <strong>обязательно</strong>
+            </mat-error>
+            <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete"
+                              (optionSelected)="onToChange($event.option.value);">
+              <mat-option *ngFor="let cityTo of citiesTo | async " [value]="cityTo">
+                {{cityTo}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+      </mat-card>
+      <mat-card class="list result">
+        <div class="res pek">
+          <div><b>ПЭК:</b>
+            <hr>
+          </div>
+
+          <div class="price" *ngIf="pekAutoCost && !pekSpin">{{ pekAutoCost }} руб.</div>
+          <div class="price" *ngIf="pekTime && !pekSpin">{{ pekTime }} дн.</div>
+          <div class="spin" *ngIf="pekSpin">
+            <mat-spinner diameter="30" color="accent"></mat-spinner>
+          </div>
+
+
+        </div>
+        <div class="res dl">
+
+          <div><b>Деловые Линии:</b>
+            <hr>
+          </div>
+
+          <div class="price" *ngIf="dlAutoCost && !dlSpin"> {{ dlAutoCost }} руб.</div>
+          <div class="price" *ngIf="dlTime && !dlSpin">{{ dlTime }} дн.</div>
+
+          <div class="spin" *ngIf="dlSpin">
+            <mat-spinner diameter="30" color="accent"></mat-spinner>
+          </div>
+
+        </div>
+      </mat-card>
+    </div>
+    <app-products [products]="products" (getProducts)="getProducts($event)" (setItems)="setItems($event)"></app-products>
+
+    <app-custom-items (setCustomItems)="setCustomItems($event)"></app-custom-items>
+
+    <mat-card class="actions">
+      <mat-checkbox class="" [(ngModel)]="delivery">Адресная доставка</mat-checkbox>
+      <mat-checkbox class="margin-left-30" [(ngModel)]="boxing">Упаковка</mat-checkbox>
+      <mat-checkbox class="margin-left-30" [(ngModel)]="insurance">Страховка</mat-checkbox>
+      <mat-form-field *ngIf="insurance" class="margin-left-30">
+          <input type="number"
+                 matInput [(ngModel)]="statedValue" placeholder="Объявленная стоимость">
+        </mat-form-field>
+
+    </mat-card>
+
+    <mat-card class="actions">
+      <button (click)="calculate()" mat-raised-button color="accent">Рассчитать</button>
+    </mat-card>
+
+    <mat-card *ngIf="errors.length" class="errors">
+      <div *ngFor="let error of errors" class="error">{{error}}</div>
+    </mat-card>
+
+  </div>
+</div>
+
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        ПЭК
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <pre>
+        {{ pekResponse | json}}
+      </pre>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Деловые Линии
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <pre>{{ dlResponse | json}}</pre>
+  </mat-expansion-panel>
+</mat-accordion>
+
+

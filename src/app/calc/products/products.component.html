@@ -1,0 +1,37 @@
+<mat-card [formGroup]="orderForm" class="products">
+  <div class="items">
+    <div formArrayName="items"
+         *ngFor="let item of orderForm.get('items')['controls']; let i = index;">
+      <div *ngIf="items" [formGroupName]="i">
+        <mat-form-field class="product">
+          <input type="text" matInput formControlName="product"
+                 [(ngModel)]="items[i]"
+                 (input)="getProducts.emit(items[i])"
+
+                 name="items[{{i}}]"
+                 [matAutocomplete]="productAutocomplete"
+                 placeholder="Название продукта">
+          <mat-autocomplete autoActiveFirstOption #productAutocomplete="matAutocomplete">
+            <mat-option  (onSelectionChange)="setParentItems()" *ngFor="let product of products" [value]="product" >
+              {{product}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field class="quantity">
+          <input type="number" (change)="setParentItems()" matInput formControlName="quantity" placeholder="Количество" min="1" max="1000">
+        </mat-form-field>
+        <button mat-button mat-icon-button matSuffix type="button" (click)="deleteItem(i)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="tools">
+    <button mat-mini-fab
+            (click)="addItem()"
+            matTooltip="Найти / Добавить товар"
+    >+
+    </button>
+  </div>
+</mat-card>

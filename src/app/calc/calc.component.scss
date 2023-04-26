@@ -1,0 +1,148 @@
+form {
+  width: 100%;
+  height: 100%;
+}
+
+.calc-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .calc {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @media(max-width: 1024px) {
+      width: 100%;
+      flex-direction: column;
+    }
+
+    .header {
+      display: flex;
+
+      .company {
+        padding: 20px;
+        margin-right: 10px;
+      }
+    }
+
+    .body {
+      display: flex;
+      @media(max-width: 1024px) {
+        flex-direction: column;
+      }
+
+
+      .list {
+        padding: 30px;
+
+        &.options {
+          width: 70%;
+          @media(max-width: 1024px) {
+            width: 100%;
+          }
+
+          .cities {
+            display: flex;
+
+            mat-form-field {
+              width: 50%;
+              padding-right: 30px;
+            }
+          }
+        }
+
+        &.result {
+          width: calc(30% - 20px);
+          margin-left: 20px;
+          display: flex;
+          flex-direction: column;
+
+          .res {
+            height: 50%;
+
+            div {
+              margin-top: 5px;
+
+              &.price {
+                text-align: right;
+                font-weight: 600;
+                color: #149461;
+              }
+
+              &.spin {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+              }
+            }
+          }
+
+          @media(max-width: 1024px) {
+            width: 100%;
+            margin-left: 0;
+          }
+        }
+      }
+    }
+
+    .products {
+      padding: 30px;
+      display: flex;
+      margin-top: 20px;
+
+      .items {
+        width: 90%;
+
+        .flex{
+          display: flex;
+
+         &> mat-form-field{
+            flex-basis: 40px;
+            margin-right: 20px;
+          }
+        }
+
+        .product {
+          width: 80%;
+        }
+
+        .quantity {
+          width: 9%;
+          margin-left: 1%;
+        }
+      }
+
+      .tools {
+        width: 10%;
+        display: flex;
+        align-items: start;
+        justify-content: center;
+      }
+    }
+
+    .actions{
+      margin-top: 20px;
+    }
+
+    .errors {
+      margin-top: 20px;
+      color: #149461;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
+.mat-flat-button.mat-accent, .mat-raised-button.mat-accent, .mat-fab.mat-accent, .mat-mini-fab.mat-accent {
+    background-color: #149461;
+}
+
+.margin-left-30{
+  margin-left: 30px;
+}

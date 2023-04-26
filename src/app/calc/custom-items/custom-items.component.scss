@@ -1,0 +1,37 @@
+.products {
+  padding: 30px;
+  display: flex;
+  margin-top: 20px;
+
+  .items {
+    width: 90%;
+
+    .flex {
+      display: flex;
+
+      & > mat-form-field {
+        flex-basis: 40px;
+        margin-right: 20px;
+      }
+    }
+
+    .product {
+      width: 80%;
+    }
+
+    .quantity {
+      width: 9%;
+      margin-left: 1%;
+    }
+  }
+
+  .tools {
+    width: 10%;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+  }
+}
+.mat-flat-button.mat-accent, .mat-raised-button.mat-accent, .mat-fab.mat-accent, .mat-mini-fab.mat-accent {
+    background-color: #149461;
+}
